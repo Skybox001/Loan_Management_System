@@ -64,13 +64,14 @@ def seed_loan_products():
         print(f"Successfully seeded {len(products)} loan products!")
         
         for p in products:
-            print(f"  - {p.name}: ₹{p.min_amount:,.0f} to ₹{p.max_amount:,.0f} @ {p.interest_rate}%")
+            print(f"  - {p.name}: INR {p.min_amount:,.0f} to INR {p.max_amount:,.0f} @ {p.interest_rate}%")
     
     except Exception as e:
         print(f"Error seeding products: {e}")
         db.rollback()
     finally:
         db.close()
+
 
 if __name__ == "__main__":
     seed_loan_products()

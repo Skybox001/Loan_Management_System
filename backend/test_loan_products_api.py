@@ -1,7 +1,11 @@
 import requests
 import json
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
 
 BASE_URL = "http://127.0.0.1:8000"
+
 
 def test_loan_products():
     print("=" * 60)
