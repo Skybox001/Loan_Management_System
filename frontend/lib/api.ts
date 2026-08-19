@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://lms-backend.onrender.com",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://loan-management-system-zjc5.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
