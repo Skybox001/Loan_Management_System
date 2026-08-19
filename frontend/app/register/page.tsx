@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAuth } from "../../lib/auth";
+import api from "../../lib/api";
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -18,10 +18,15 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     try {
-      await login(email, password);
-      router.push("/dashboard");
-    } catch {
-      setError("Invalid email or password");
+      await api.post("/api/auth/register", {
+        name,
+        email,
+        password,
+        role: "customer",
+      });
+      router.push("/login");
+    } catch (err: any) {
+      setError(err.response?.data?.detail || "Registration failed");
     } finally {
       setLoading(false);
     }
@@ -34,7 +39,7 @@ export default function LoginPage() {
         className="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-8 shadow-sm"
       >
         <h1 className="mb-6 text-xl font-semibold text-gray-900">
-          Sign in to LMS
+          Create Account
         </h1>
 
         {error && (
@@ -42,6 +47,17 @@ export default function LoginPage() {
             {error}
           </div>
         )}
+
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Name
+        </label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="mb-4 w-full rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none"
+        />
 
         <label className="mb-1 block text-sm font-medium text-gray-700">
           Email
@@ -70,13 +86,13 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full rounded bg-blue-600 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
         >
-          {loading ? "Signing in..." : "Sign in"}
+          {loading ? "Creating account..." : "Register"}
         </button>
 
         <p className="mt-4 text-center text-sm text-gray-600">
-          Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-blue-600 hover:underline">
-            Register
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-600 hover:underline">
+            Sign in
           </Link>
         </p>
       </form>
