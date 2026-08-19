@@ -20,8 +20,9 @@ class Settings(BaseSettings):
     CORS_ORIGINS: str = "http://localhost:3000"
 
     class Config:
-        env_file = ".env"
+        env_file = ("backend/.env", ".env")
         case_sensitive = True
+
 
     @property
     def cors_origins_list(self) -> list[str]:
