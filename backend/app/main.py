@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, customers, loan_products, loan_applications, documents, emi_schedule, payments, audit_logs, dashboard, notifications, reports
-
 from app.api import (
     auth,
     customers,
@@ -13,7 +11,11 @@ from app.api import (
     audit_logs,
     dashboard,
     notifications,
+    reports,
 )
+
+
+from app.core.config import settings
 
 app = FastAPI(
     title="Loan Management System",
@@ -22,11 +24,12 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=settings.cors_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(auth.router)
 app.include_router(customers.router)
