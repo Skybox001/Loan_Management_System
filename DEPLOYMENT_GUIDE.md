@@ -58,8 +58,9 @@ services:
   - type: web
     name: lms-backend
     env: python
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -71,7 +72,8 @@ services:
         value: https://your-frontend-url.com
 ```
 
-**Database**: Use Render PostgreSQL or External PostgreSQL (e.g., Supabase, AWS RDS)
+
+**Database**: Use Render PostgreSQL or External PostgreSQL (e.g., Supabase, AWS RDS). Note: If sharing a single PostgreSQL database instance (such as Render's free tier database), LMS is automatically isolated within its own `lms` schema (`CREATE SCHEMA IF NOT EXISTS lms;`), preventing any table or enum name conflicts with other applications sharing the database.
 
 **Redis**: Use Render Redis or Upstash Redis (serverless)
 
