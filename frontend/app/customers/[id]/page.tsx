@@ -26,11 +26,13 @@ type Customer = {
 
 type LoanApplication = {
   id: number;
+  customer_id: number;
   amount: string;
   status: string;
   created_at: string;
   loan_product_id: number;
 };
+
 
 export default function CustomerDetailPage() {
   const router = useRouter();
