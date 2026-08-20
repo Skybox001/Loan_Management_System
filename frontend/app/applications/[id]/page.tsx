@@ -120,7 +120,7 @@ export default function ApplicationDetailPage() {
 
   async function fetchDocuments() {
     try {
-      const res = await api.get(`/api/documents/?application_id=${applicationId}`);
+      const res = await api.get(`/api/documents/${applicationId}`);
       setDocuments(res.data);
     } catch (err) {
       console.error("Failed to fetch documents", err);
@@ -342,11 +342,13 @@ export default function ApplicationDetailPage() {
                 onChange={(e) => setDocumentType(e.target.value)}
                 className="w-full rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900"
               >
-                <option value="pan_card">PAN Card</option>
-                <option value="aadhaar_card">Aadhaar Card</option>
-                <option value="income_proof">Income Proof</option>
+                <option value="pan">PAN Card</option>
+                <option value="aadhaar">Aadhaar Card</option>
+                <option value="salary_slip">Salary Slip</option>
                 <option value="bank_statement">Bank Statement</option>
-                <option value="other">Other</option>
+                <option value="form_16">Form 16</option>
+                <option value="photograph">Photograph</option>
+                <option value="address_proof">Address Proof</option>
               </select>
             </div>
             <div className="flex-1">
