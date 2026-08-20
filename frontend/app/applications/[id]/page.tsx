@@ -187,7 +187,7 @@ export default function ApplicationDetailPage() {
 
     setActionLoading(true);
     try {
-      await api.post(`/api/documents/${applicationId}`, formData, {
+      await api.post(`/api/documents/${applicationId}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       await fetchDocuments();
